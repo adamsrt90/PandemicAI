@@ -1,0 +1,1367 @@
+{
+    "Cards": {
+        "San Francisco": {
+            "City_ID": [
+                1,
+                1,
+                1
+            ],
+            "Card_ID": [
+                2,
+                1,
+                1
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                1
+            ],
+            "Type": "Blue",
+            "Population": 5864000,
+            "Connections": [
+                "Chicago",
+                "Los Angeles",
+                "Tokyo",
+                "Manila"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Atlanta": {
+            "City_ID": [
+                1,
+                1,
+                2
+            ],
+            "Card_ID": [
+                2,
+                1,
+                2
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                2
+            ],
+            "Type": "Blue",
+            "Population": 4715000,
+            "Connections": [
+                "Chicago",
+                "Miami",
+                "Washington"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Essen": {
+            "City_ID": [
+                1,
+                1,
+                3
+            ],
+            "Card_ID": [
+                2,
+                1,
+                3
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                3
+            ],
+            "Type": "Blue",
+            "Population": 575000,
+            "Connections": [
+                "London",
+                "Paris",
+                "Milan",
+                "St. Petersburg"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "St. Petersburg": {
+            "City_ID": [
+                1,
+                1,
+                4
+            ],
+            "Card_ID": [
+                2,
+                1,
+                4
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                4
+            ],
+            "Type": "Blue",
+            "Population": 4879000,
+            "Connections": [
+                "Moscow",
+                "Instanbul",
+                "Essen"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Chicago": {
+            "City_ID": [
+                1,
+                1,
+                5
+            ],
+            "Card_ID": [
+                2,
+                1,
+                5
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                5
+            ],
+            "Type": "Blue",
+            "Population": 9121000,
+            "Connections": [
+                "Montreal",
+                "Atlanta",
+                "Mexico City",
+                "Los Angeles"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Montreal": {
+            "City_ID": [
+                1,
+                1,
+                6
+            ],
+            "Card_ID": [
+                2,
+                1,
+                6
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                6
+            ],
+            "Type": "Blue",
+            "Population": 2429000,
+            "Connections": [
+                "New York",
+                "Washington",
+                "Montreal",
+                "Chicago"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Milan": {
+            "City_ID": [
+                1,
+                1,
+                7
+            ],
+            "Card_ID": [
+                2,
+                1,
+                7
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                7
+            ],
+            "Type": "Blue",
+            "Population": 5232000,
+            "Connections": [
+                "Istanbul",
+                "Paris",
+                "Essen"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "New York": {
+            "City_ID": [
+                1,
+                1,
+                8
+            ],
+            "Card_ID": [
+                2,
+                1,
+                8
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                8
+            ],
+            "Type": "Blue",
+            "Population": 9121000,
+            "Connections": [
+                "London",
+                "Madrid",
+                "Montreal",
+                "Washington"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "London": {
+            "City_ID": [
+                1,
+                1,
+                9
+            ],
+            "Card_ID": [
+                2,
+                1,
+                9
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                9
+            ],
+            "Type": "Blue",
+            "Population": 8586000,
+            "Connections": [
+                "Essen",
+                "Paris",
+                "Madrid",
+                "New York"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Washington": {
+            "City_ID": [
+                1,
+                1,
+                10
+            ],
+            "Card_ID": [
+                2,
+                1,
+                10
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                10
+            ],
+            "Type": "Blue",
+            "Population": 4679000,
+            "Connections": [
+                "New York",
+                "Atlanta",
+                "Montreal",
+                "Miami"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Paris": {
+            "City_ID": [
+                1,
+                1,
+                11
+            ],
+            "Card_ID": [
+                2,
+                1,
+                11
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                11
+            ],
+            "Type": "Blue",
+            "Population": 10755000,
+            "Connections": [
+                "Madrid",
+                "London",
+                "Essen",
+                "Algiers",
+                "Milian"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Madrid": {
+            "City_ID": [
+                1,
+                1,
+                12
+            ],
+            "Card_ID": [
+                2,
+                1,
+                12
+            ],
+            "Infection_ID": [
+                3,
+                1,
+                12
+            ],
+            "Type": "Blue",
+            "Population": 5427000,
+            "Connections": [
+                "New York",
+                "Algiers",
+                "Sao Paulo",
+                "Paris",
+                "London"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Algiers": {
+            "City_ID": [
+                1,
+                2,
+                1
+            ],
+            "Card_ID": [
+                2,
+                2,
+                1
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                1
+            ],
+            "Type": "Black",
+            "Population": 2946000,
+            "Connections": [
+                "Cairo",
+                "Istanbul",
+                "Paris",
+                "Madrid"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Baghdad": {
+            "City_ID": [
+                1,
+                2,
+                2
+            ],
+            "Card_ID": [
+                2,
+                2,
+                2
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                2
+            ],
+            "Type": "Black",
+            "Population": 6204000,
+            "Connections": [
+                "Tehran",
+                "Karachi",
+                "Riyadh",
+                "Cairo",
+                "Istanbul"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Cairo": {
+            "City_ID": [
+                1,
+                2,
+                3
+            ],
+            "Card_ID": [
+                2,
+                2,
+                3
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                3
+            ],
+            "Type": "Black",
+            "Population": 14718000,
+            "Connections": [
+                "Algiers",
+                "Riyadh",
+                "Bahdad",
+                "Istanbul"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Tehran": {
+            "City_ID": [
+                1,
+                2,
+                4
+            ],
+            "Card_ID": [
+                2,
+                2,
+                4
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                4
+            ],
+            "Type": "Black",
+            "Population": 7419000,
+            "Connections": [
+                "Moscow",
+                "Baghdad",
+                "Karachi",
+                "Delhi"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Delhi": {
+            "City_ID": [
+                1,
+                3,
+                5
+            ],
+            "Card_ID": [
+                2,
+                2,
+                5
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                5
+            ],
+            "Type": "Black",
+            "Population": 22242000,
+            "Connections": [
+                "Kolkata",
+                "Chennai",
+                "Mumbai",
+                "Karachi",
+                "Tehran"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Kolkata": {
+            "City_ID": [
+                1,
+                2,
+                6
+            ],
+            "Card_ID": [
+                2,
+                2,
+                6
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                6
+            ],
+            "Type": "Black",
+            "Population": 14374000,
+            "Connections": [
+                "Hong Kong",
+                "Bangkok",
+                "Chennai",
+                "Delhi"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Chennai": {
+            "City_ID": [
+                1,
+                2,
+                7
+            ],
+            "Card_ID": [
+                2,
+                2,
+                7
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                7
+            ],
+            "Type": "Black",
+            "Population": 8865000,
+            "Connections": [
+                "Jakarta",
+                "Bangkok",
+                "Kolkata",
+                "Delhi",
+                "Mumbai"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Riyadh": {
+            "City_ID": [
+                1,
+                2,
+                8
+            ],
+            "Card_ID": [
+                2,
+                2,
+                8
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                8
+            ],
+            "Type": "Black",
+            "Population": 5037000,
+            "Connections": [
+                "Cairo",
+                "Baghdad",
+                "Karachi"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Moscow": {
+            "City_ID": [
+                1,
+                2,
+                9
+            ],
+            "Card_ID": [
+                2,
+                2,
+                9
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                9
+            ],
+            "Type": "Black",
+            "Population": 15512000,
+            "Connections": [
+                "St. Petersberg",
+                "Istanbul",
+                "Tehran"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Mumbai": {
+            "City_ID": [
+                1,
+                2,
+                10
+            ],
+            "Card_ID": [
+                2,
+                2,
+                10
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                10
+            ],
+            "Type": "Black",
+            "Population": 16910000,
+            "Connections": [
+                "Chennai",
+                "Karachi",
+                "Delhi"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Karachi": {
+            "City_ID": [
+                1,
+                2,
+                11
+            ],
+            "Card_ID": [
+                2,
+                2,
+                11
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                11
+            ],
+            "Type": "Black",
+            "Population": 20711000,
+            "Connections": [
+                "Mumbai",
+                "Delhi",
+                "Tehran",
+                "Baghdad",
+                "Riyadh"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Istanbul": {
+            "City_ID": [
+                1,
+                2,
+                12
+            ],
+            "Card_ID": [
+                2,
+                2,
+                12
+            ],
+            "Infection_ID": [
+                3,
+                2,
+                12
+            ],
+            "Type": "Black",
+            "Population": 13576000,
+            "Connections": [
+                "Algiers",
+                "Cairo",
+                "Baghdad",
+                "Moscaow",
+                "St. Petersburg",
+                "Milan"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Seoul": {
+            "City_ID": [
+                1,
+                3,
+                1
+            ],
+            "Card_ID": [
+                2,
+                3,
+                1
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                1
+            ],
+            "Type": "Red",
+            "Population": 22547000,
+            "Connections": [
+                "Beijing",
+                "Shanghai",
+                "Tokyo"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Sydney": {
+            "City_ID": [
+                1,
+                3,
+                2
+            ],
+            "Card_ID": [
+                2,
+                3,
+                2
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                2
+            ],
+            "Type": "Red",
+            "Population": 3785000,
+            "Connections": [
+                "Los Angeles",
+                "Manila",
+                "Jakarta"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Beijing": {
+            "City_ID": [
+                1,
+                3,
+                3
+            ],
+            "Card_ID": [
+                2,
+                3,
+                3
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                3
+            ],
+            "Type": "Red",
+            "Population": 17311000,
+            "Connections": [
+                "Seoul",
+                "Shanghai"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Bangkok": {
+            "City_ID": [
+                1,
+                3,
+                4
+            ],
+            "Card_ID": [
+                2,
+                3,
+                4
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                4
+            ],
+            "Type": "Red",
+            "Population": 7151000,
+            "Connections": [
+                "Kolkata",
+                "Chennai",
+                "Jakarta",
+                "Ho Chi Minh City",
+                "Hong Kong"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Taipei": {
+            "City_ID": [
+                1,
+                3,
+                5
+            ],
+            "Card_ID": [
+                2,
+                3,
+                5
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                5
+            ],
+            "Type": "Red",
+            "Population": 8338000,
+            "Connections": [
+                "Osaka",
+                "Shanghai",
+                "Hong Kong",
+                "Manila"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Manila": {
+            "City_ID": [
+                1,
+                3,
+                6
+            ],
+            "Card_ID": [
+                2,
+                3,
+                6
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                6
+            ],
+            "Type": "Red",
+            "Population": 20767000,
+            "Connections": [
+                "Sydney",
+                "Ho Chi Minh City",
+                "Hong Kong",
+                "Taipei"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Ho Chi Minh City": {
+            "City_ID": [
+                1,
+                3,
+                7
+            ],
+            "Card_ID": [
+                2,
+                3,
+                7
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                7
+            ],
+            "Type": "Red",
+            "Population": 8314000,
+            "Connections": [
+                "Manila",
+                "Jakarta",
+                "Bangkok",
+                "Hong Kong"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Shanghai": {
+            "City_ID": [
+                1,
+                3,
+                8
+            ],
+            "Card_ID": [
+                2,
+                3,
+                8
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                8
+            ],
+            "Type": "Red",
+            "Population": 13482000,
+            "Connections": [
+                "Beijing",
+                "Seoul",
+                "Tokyo",
+                "Taipei",
+                "Hong Kong"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Osaka": {
+            "City_ID": [
+                1,
+                3,
+                9
+            ],
+            "Card_ID": [
+                2,
+                3,
+                9
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                9
+            ],
+            "Type": "Red",
+            "Population": 2871000,
+            "Connections": [
+                "Tokyo",
+                "Taipei"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Hong Kong": {
+            "City_ID": [
+                1,
+                3,
+                10
+            ],
+            "Card_ID": [
+                2,
+                3,
+                10
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                10
+            ],
+            "Type": "Red",
+            "Population": 7106000,
+            "Connections": [
+                "Shanghai",
+                "Taipei",
+                "Manila",
+                "Ho Chi Minh City",
+                "Bangkok",
+                "Kolkata"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Tokyo": {
+            "City_ID": [
+                1,
+                3,
+                11
+            ],
+            "Card_ID": [
+                2,
+                3,
+                11
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                11
+            ],
+            "Type": "Red",
+            "Population": 13189000,
+            "Connections": [
+                "Seoul",
+                "Shanghai",
+                "Osaka",
+                "San Francisco"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Jakarta": {
+            "City_ID": [
+                1,
+                3,
+                12
+            ],
+            "Card_ID": [
+                2,
+                3,
+                12
+            ],
+            "Infection_ID": [
+                3,
+                3,
+                12
+            ],
+            "Type": "Red",
+            "Population": 26063000,
+            "Connections": [
+                "Sydney",
+                "Ho Chi minh City",
+                "Bangkok",
+                "Chennai"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Bogota": {
+            "City_ID": [
+                1,
+                4,
+                1
+            ],
+            "Card_ID": [
+                2,
+                4,
+                1
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                1
+            ],
+            "Type": "Yellow",
+            "Population": 8702000,
+            "Connections": [
+                "Miami",
+                "Mexico City",
+                "Lima",
+                "Buenos Aires",
+                "Sao Paulo"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Johannesburg": {
+            "City_ID": [
+                1,
+                4,
+                2
+            ],
+            "Card_ID": [
+                2,
+                4,
+                2
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                2
+            ],
+            "Type": "Yellow",
+            "Population": 3888000,
+            "Connections": [
+                "Kinshasa",
+                "Khartoum"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Lagos": {
+            "City_ID": [
+                1,
+                4,
+                3
+            ],
+            "Card_ID": [
+                2,
+                4,
+                3
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                3
+            ],
+            "Type": "Yellow",
+            "Population": 11537000,
+            "Connections": [
+                "Kartoum",
+                "Kinshasa",
+                "Sao Paulo"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Kinshasa": {
+            "City_ID": [
+                1,
+                4,
+                4
+            ],
+            "Card_ID": [
+                2,
+                4,
+                4
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                4
+            ],
+            "Type": "Yellow",
+            "Population": 9046000,
+            "Connections": [
+                "Johannesburg",
+                "Khartoum",
+                "Lagos"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Sao Paulo": {
+            "City_ID": [
+                1,
+                4,
+                5
+            ],
+            "Card_ID": [
+                2,
+                4,
+                5
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                5
+            ],
+            "Type": "Yellow",
+            "Population": 20186000,
+            "Connections": [
+                "Lagos",
+                "Madrid",
+                "Bogota",
+                "Buenos Aires"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Los Angeles": {
+            "City_ID": [
+                1,
+                4,
+                6
+            ],
+            "Card_ID": [
+                2,
+                4,
+                6
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                6
+            ],
+            "Type": "Yellow",
+            "Population": 14900000,
+            "Connections": [
+                "Sydney",
+                "Mexico City",
+                "Chicago",
+                "San Francisco"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Miami": {
+            "City_ID": [
+                1,
+                4,
+                7
+            ],
+            "Card_ID": [
+                2,
+                4,
+                7
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                7
+            ],
+            "Type": "Yellow",
+            "Population": 5582000,
+            "Connections": [
+                "Washington",
+                "Atlanta",
+                "Mexico City",
+                "Bogota"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Khartoum": {
+            "City_ID": [
+                1,
+                4,
+                8
+            ],
+            "Card_ID": [
+                2,
+                4,
+                8
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                8
+            ],
+            "Type": "Yellow",
+            "Population": 4887000,
+            "Connections": [
+                "Cairo",
+                "Lagos",
+                "Kinshasa",
+                "Johannesburg"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Buenos Aires": {
+            "City_ID": [
+                1,
+                4,
+                9
+            ],
+            "Card_ID": [
+                2,
+                4,
+                9
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                9
+            ],
+            "Type": "Yellow",
+            "Population": 13639000,
+            "Connections": [
+                "Sao Paulo",
+                "Bogota"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Santiago": {
+            "City_ID": [
+                1,
+                4,
+                10
+            ],
+            "Card_ID": [
+                2,
+                4,
+                10
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                10
+            ],
+            "Type": "Yellow",
+            "Population": 6015000,
+            "Connections": [
+                "Lima"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Lima": {
+            "City_ID": [
+                1,
+                4,
+                11
+            ],
+            "Card_ID": [
+                2,
+                4,
+                11
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                11
+            ],
+            "Type": "Yellow",
+            "Population": 9121000,
+            "Connections": [
+                "Bogota",
+                "Mexico City"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        },
+        "Mexico City": {
+            "City_ID": [
+                1,
+                4,
+                12
+            ],
+            "Card_ID": [
+                2,
+                4,
+                12
+            ],
+            "Infection_ID": [
+                3,
+                4,
+                12
+            ],
+            "Type": "Yellow",
+            "Population": 19463000,
+            "Connections": [
+                "Miami",
+                "Chicago",
+                "Los Angeles"
+            ],
+            "Players": [],
+            "Blocks": [],
+            "Research": false
+        }
+    },
+    "Events": {
+        "One_Quiet_Night": {
+            "Card_ID": [
+                4,
+                5,
+                1
+            ]
+        },
+        "Forecast": {
+            "Card_ID": [
+                4,
+                5,
+                2
+            ]
+        },
+        "Airlift": {
+            "Card_ID": [
+                4,
+                5,
+                3
+            ]
+        },
+        "Resilient_Population": {
+            "Card_ID": [
+                4,
+                5,
+                4
+            ]
+        }
+    }
+}

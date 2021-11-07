@@ -1,0 +1,125 @@
+{
+    "normal_actions": {
+        "Move": [
+            1,
+            1
+        ],
+        "Treat Disease": [
+            1,
+            2
+        ],
+        "Share_Knowledge": [
+            1,
+            3
+        ],
+        "Discover Cure": [
+            1,
+            4
+        ],
+        "Build Station": [
+            1,
+            5
+        ],
+        "Direct Flight": [
+            1,
+            6
+        ],
+        "Shuttle Flight": [
+            1,
+            7
+        ],
+        "Discard": [
+            1,
+            8
+        ],
+        "Draw": [
+            1,
+            9
+        ],
+        "Take Card": [
+            1,
+            10
+        ]
+    },
+    "special_actions": {
+        "Scientist": {
+            "Role": [
+                1
+            ],
+            "Discover Cure": [
+                2,
+                1
+            ]
+        },
+        "Medic": {
+            "Role": [
+                2
+            ],
+            "Treat Disease": [
+                2,
+                2
+            ],
+            "Auto Treat": [
+                2,
+                3
+            ],
+            "Prevent City Infection": [
+                2,
+                4
+            ]
+        },
+        "Quarantine Specialist": {
+            "Role": [
+                3
+            ],
+            "Prevent Connected Infections": [
+                2,
+                5
+            ]
+        },
+        "Dispatcher": {
+            "Role": [
+                4
+            ],
+            "Move Other Player": [
+                2,
+                6
+            ],
+            "Move Pawn To Pawn": [
+                2,
+                7
+            ]
+        },
+        "Contingency Planner": {
+            "Role": [
+                5
+            ],
+            "Take Discarded Card": [
+                2,
+                8
+            ]
+        },
+        "Operations Expert": {
+            "Role": [
+                6
+            ],
+            "Build Any Station": [
+                2,
+                9
+            ],
+            "Any Direct Flight": [
+                2,
+                10
+            ]
+        },
+        "Researcher": {
+            "Role": [
+                7
+            ],
+            "Share Any": [
+                2,
+                11
+            ]
+        }
+    }
+}
