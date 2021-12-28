@@ -1,5 +1,5 @@
 import json
-from random import shuffle
+
 with open('./variables/cities.json','r') as f:
     allCities = json.load(f)
 with open('./variables/player_cards.json','r') as f:
