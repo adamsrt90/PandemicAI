@@ -3,6 +3,7 @@ import json
 import os
 from PandemicGameData import allCities, playerCards, infectionCards
 from random import shuffle, sample
+from collections import Counter
 from abc import ABC, abstractmethod
 
 # Game object will use builder pattern to create a game board, players, and decks
@@ -626,27 +627,15 @@ class DiscoverCure(PlayerAction):
         self.player = player
         self.card_type = card_type
         self.receiver = receiver
-        # if scientist, only need four of same card type
+        # if scientist, only need four of same color card
         # else need 5 of same card type
         # player location must have research station
+        #will use collections module to check if the player has the required cards.
+        #check the card amounts against player role and behave accordingly.
+        
 
     def execute(self):
-        if self.player.role == 'Scientist':
-            if self.player.player_location['Research'] and list(self.player.player_cards['Type']) >= 4:
-                for card_type in self.player.player_cards[type]:
-                    if card_type == self.card_type:
-                        self.receiver.remove_card(self.player, self.card_type)
-                        return self.player
-            else:
-                print(
-                    'You either have to be at a research station or have 4 cards of the same type as a Scientist!')
-        elif self.player.player_location['Research'] and list(self.player.player_cards['Type']) >= 5:
-            for card_type in self.player.player_cards[type]:
-                if card_type == self.card_type:
-                    self.receiver.remove_card(self.player, self.card_type)
-                    return self.player
-        else:
-            print('You cannot discover a cure.')
+        pass
 
 
 class Treat(PlayerAction):
@@ -666,22 +655,6 @@ class BuildResearch(PlayerAction):
 
 class PlayEventCard(PlayerAction):
     pass
-
-
-class DiscardCard(PlayerAction):
-    def __init__(self, receiver: UpdateCardsReceiver, player):
-        self.player = player
-        self.card = input("You must discard a card: ")
-        self.receiver = receiver
-
-    def execute(self):
-        if self.card == "Event":
-            print('You played an event!')
-            self.receiver.remove_card(self.player, self.card)
-        elif self.card in self.player.player_cards.keys():
-            self.receiver.remove_card(self.player, self.card)
-        else:
-            print("You don't have that card to discard!")
 
 
 class SpecialAction(PlayerAction):
@@ -706,8 +679,7 @@ class MoveReceiver:
 
 class UpdateCardsReceiver:
     '''
-    The TakeCard, PlayEventCard, ShareKnowledge, and DiscardCard, Discover (to some extent Shuttle, DirectFlight, ResearchStation) are all essentially the same. 
-    This will update player status while the individual commands will check if possible.
+    Will be used when a player voluntarily discards or transfers a card. Shuttles and Direct Flights will handle them automatically because I'm lazy and incompetent.
     '''
 
     def remove_card(self, player, card):
