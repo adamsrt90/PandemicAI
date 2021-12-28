@@ -78,6 +78,9 @@ class Game(object):
         self.PlayerDeck.add_epidemic_cards()
 
         # infect cities
+        # set up infection cities. First 3 cities pulled get 3 cubes of its color
+        # second three cities get 2 cubes of its color
+        # third three cities get 1 cube of its color
         for i in range(3):
             self.InfectionDeck.infect_city(3)
         for i in range(3):
@@ -103,9 +106,7 @@ class Game(object):
             except StopIteration:
                 self.start_turn()
 
-        # set up infection cities. First 3 cities pulled get 3 cubes of its color
-        # second three cities get 2 cubes of its color
-        # third three cities get 1 cube of its color
+
 
 
 class GameState:
@@ -146,9 +147,8 @@ class GameState:
     def save_state(self):
         self.get_state()
         # save the game state to a json file.
-        # will only save the last 25 game states
+        # will only save the last 10 game states
         # if 10 states have been saved, the oldest state will be deleted use os.path.getctime() to get the time of the oldest saved state
-        # over
         file_list = os.listdir('./GameState/')
         file_path = [".GameState/{0}".format(x) for x in file_list]
         if len(file_list) > 25:
