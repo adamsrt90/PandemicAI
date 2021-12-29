@@ -1,10 +1,15 @@
 from __future__ import annotations
+
 import json
+import logging
+import logging.config
 import os
-from PandemicGameData import allCities, playerCards, infectionCards
-from random import shuffle, sample
-from collections import Counter
 from abc import ABC, abstractmethod
+from collections import Counter
+from json import JSONEncoder
+from random import sample, shuffle
+
+from PandemicGameData import allCities, infectionCards, playerCards
 
 # Game object will use builder pattern to create a game board, players, and decks
 # The actions will use the command pattern to call the appropriate methods on the game board
@@ -15,6 +20,16 @@ from abc import ABC, abstractmethod
 
 class Game(object):
     def __init__(self, number_of_players, number_of_AI=0, number_of_epidemics=4):
+        formatter = logging.Formatter('%(message)s')
+        logging.basicConfig(filename='Pandemic.log', level=logging.DEBUG,
+                            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.actionlogging = logging.getLogger("Action Logger")
+        self.actionlogging.setLevel(logging.DEBUG)
+        self.actionlogConsole = logging.StreamHandler()
+        self.actionlogConsole.setLevel(logging.DEBUG)
+        self.actionlogConsole.setFormatter(formatter)
+        self.actionlogging.addHandler(self.actionlogConsole)
+
         # step 1: setup players
         self.turncounter = 1
         self.number_of_players = number_of_players
@@ -60,7 +75,7 @@ class Game(object):
                 self.Players.append(
                     AiPlayer(f'AI: {i+1}', self.PlayerRoles[self.number_of_players + i], game=self))
         for player in self.Players:
-            print(player.role)
+            self.actionlogging.info(player.role)
         for city in allCities:
             self.gameCities[city[0]] = City(
                 city[0], city[1], city[2], city[3], city[4], game=self)
@@ -87,15 +102,14 @@ class Game(object):
             self.InfectionDeck.infect_city(2)
         for i in range(3):
             self.InfectionDeck.infect_city(1)
-        for city in self.gameCities:
-            print(self.gameCities[city].city_id, self.gameCities[city].cubes)
 
     # step 3: shuffle decks, deal out cards, infect cities
 
     def setup_game(self):
         self.create_players_cities_and_deck()
         self.set_items()
-        self.GameState.save_state()
+        self.GameState.save_state()  # for ai data
+        self.GameState.save_initial_state()
 
     def start_turn(self):
         player = iter(self.Players)
@@ -105,8 +119,6 @@ class Game(object):
                 self.Turn.start_turn()
             except StopIteration:
                 self.start_turn()
-
-
 
 
 class GameState:
@@ -123,15 +135,13 @@ class GameState:
     Each Player's Current City
     Status of each disease
     Number of Epidemic cards in the deck
-
-
     '''
 
     def __init__(self, game=None):
         self.game = game
         self.game_state = {}
 
-    def get_state(self):
+    def get_state(self):  # or ai data
         self.game_state['Number_Players'] = [len(self.game.Players)]
         self.game_state['City_Status'] = [[self.game.gameCities[city].city_id, self.game.gameCities[city].cubes,
                                            self.game.gameCities[city].total_cubes, self.game.gameCities[city].connection_ids] for city in self.game.gameCities]
@@ -144,14 +154,14 @@ class GameState:
         self.game_state['Cure_Status'] = [
             self.game.CuredDiseases, self.game.EradicatedDiseases]
 
-    def save_state(self):
+    def save_state(self):  # for ai data
         self.get_state()
         # save the game state to a json file.
         # will only save the last 10 game states
         # if 10 states have been saved, the oldest state will be deleted use os.path.getctime() to get the time of the oldest saved state
         file_list = os.listdir('./GameState/')
         file_path = [".GameState/{0}".format(x) for x in file_list]
-        if len(file_list) > 25:
+        if len(file_list) >= 50:
             oldest_file = min(full_path, key=os.path.getctime)
             os.remove(oldest_file)
             with open(f'./GameState/GameState{self.game.turncounter}.json', 'w') as f:
@@ -159,6 +169,34 @@ class GameState:
         else:
             with open(f'./GameState/GameState{self.game.turncounter}.json', 'w') as f:
                 json.dump(self.game_state, f, indent=4)
+
+    def save_initial_state(self):  # for undoing past moves
+        data = {
+            "number_of_players": self.game.__dict__['number_of_players'],
+            "number_of_AI": self.game.__dict__['number_of_AI'],
+            "player_roles": self.game.__dict__['PlayerRoles'],
+            "player_cards": [[player.hand] for player in self.game.Players],
+            "infection_deck_discards": self.game.__dict__['InfectionDeck_Discards'],
+            "number_of_epidemics": self.game.__dict__['number_of_epidemics'],
+            "player_deck": self.game.__dict__['PlayerDeck'].deck,
+            "infection_deck": self.game.__dict__['InfectionDeck'].deck,
+        }
+        with open('initial_game.json', 'w') as f:
+            json.dump(data, f, indent=4)
+
+    def load_initial_state(self):
+        with open('initial_game.json', 'r') as f:
+            data = json.load(f)
+        self.game.__dict__['number_of_players'] = data['number_of_players']
+        self.game.__dict__['number_of_AI'] = data['number_of_AI']
+        self.game.__dict__['PlayerRoles'] = data['player_roles']
+        self.game.__dict__[
+            'InfectionDeck_Discards'] = data['infection_deck_discards']
+        self.game.__dict__['number_of_epidemics'] = data['number_of_epidemics']
+        self.game.__dict__['PlayerDeck'].deck = data['player_deck']
+        self.game.__dict__['InfectionDeck'].deck = data['infection_deck']
+        for player, cards in zip(self.game.Players, data['player_cards']):
+            player.hand = cards
 
 
 class PlayerDeck(object):
@@ -224,17 +262,18 @@ class Turn(object):
         self.game = game
         self.current_outbreaks = []
         self.player_actions = 4
-        self.done = False
         self.MoveReceiver = MoveReceiver()
         self.UpdateCardsReceiver = UpdateCardsReceiver()
         self.GeneralActionReceiver = GeneralActionReceiver()
         self.ActionInvoker = ActionInvoker()
 
     def start_turn(self):
-        print(f'{self.player.name} is starting turn {self.turncounter}')
-        self.player_action(action=input('What would you like to do? '))
+        self.game.actionlogging.info(
+            f'{self.player.name} is starting turn {self.turncounter}')
+        self.game.actionlogging.info(self.player_action(
+            action=input('What would you like to do? ')))
 
-    def player_action(self, action, target_city=None, target_player=None):
+    def player_action(self, action):
         '''
         This method will be called by the player object to perform an action.
         This method will call the command pattern below which handles the specifics of actions
@@ -242,12 +281,13 @@ class Turn(object):
         while self.player_actions > 0:
             try:
                 if action == 'Move':
-                    print(
+                    self.game.actionlogging.info(
                         f'You are in {self.player.location} and can move to {self.game.gameCities[self.player.location].connected_cities}')
                     self.target_city = input(
                         f'Where would you like to move to? ')
                     if self.target_city == "Cancel":
-                        print(f'{self.player.name} has cancelled their move.')
+                        self.game.actionlogging.info(
+                            f'{self.player.name} has cancelled their move.')
                         self.player_action(action=input(
                             'What would you like to do? '))
                     else:
@@ -256,23 +296,25 @@ class Turn(object):
                         self.ActionInvoker.perform_action()
 
                         if self.player_actions != 0:
-                            print(
+                            self.game.actionlogging.info(
                                 f'You have {self.player_actions} moves left!')
                             self.player_action(action=input(
                                 'What would you like to do next? '))
                         else:
-                            print(f'{self.player.name} has finished their turn.')
+                            self.game.actionlogging.info(
+                                f'{self.player.name} has finished their turn.')
                             self.end_turn()
 
                 elif action == 'Direct Flight':
-                    print(
+                    self.game.actionlogging.info(
                         f'You are in {self.player.location} and can directly fly to {[i[0] for i in self.player.hand]}'
                     )
                     self.target_city = input(
                         f'Where you would like to fly to? '
                     )
                     if self.target_city == "Cancel":
-                        print(f'{self.player.name} has cancelled their move.')
+                        self.game.actionlogging.info(
+                            f'{self.player.name} has cancelled their move.')
                         self.player_action(action=input(
                             'What would you like to do? '))
                     else:
@@ -281,48 +323,53 @@ class Turn(object):
                         self.ActionInvoker.perform_action()
 
                         if self.player_actions != 0:
-                            print(
+                            self.game.actionlogging.info(
                                 f'You have {self.player_actions} moves left!')
                             self.player_action(action=input(
                                 'What would you like to do next? '))
                         else:
-                            print(f'{self.player.name} has finished their turn.')
+                            self.game.actionlogging.info(
+                                f'{self.player.name} has finished their turn.')
                             self.end_turn()
 
                 elif action == 'Charter Flight':
-                    print(
-                        f'You are in {self.player.location} and can only charter a flight if you have current city in {self.player.hand}'
-                    )
-                    self.target_city = input(
-                        f'Where you would like to charter a flight to? '
-                    )
-                    if self.target_city == "Cancel":
-                        print(f'{self.player.name} has cancelled their move.')
+                    
+                    valid_city = CharterFlight(#checks city's validity before proceeding. 
+                        self.MoveReceiver, self.player, game=self.game).city_check()
+                    if valid_city:
+                        self.target_city = input(
+                            f'Where you would like to charter a flight to?'
+                        )
+                        if self.target_city == "Cancel":
+                            self.game.actionlogging.info(
+                                f'{self.player.name} has cancelled their move.')
+                            self.player_action(action=input(
+                                'What would you like to do? '))
+                        else:
+                            self.ActionInvoker.set_on_start(
+                                CharterFlight(self.MoveReceiver, self.player, self.target_city, game=self.game))
+                            self.ActionInvoker.perform_action()
+                            if self.player_actions != 0:
+                                self.game.actionlogging.info(
+                                    f'You have {self.player_actions} moves left!')
+                                self.player_action(action=input(
+                                    'What would you like to do next? '))
+                            else:
+                                self.game.actionlogging.info(
+                                    f'{self.player.name} has finished their turn.')
+                                self.end_turn()
+                    else:
                         self.player_action(action=input(
                             'What would you like to do? '))
-                    else:
-                        self.ActionInvoker.set_on_start(
-                            ShuttleFlight(self.MoveReceiver, self.player, self.target_city, game=self.game))
-                        self.ActionInvoker.perform_action()
-                        print(
-                            f'{self.player.name} has moved to {self.target_city}')
-                        if self.player_actions != 0:
-                            print(
-                                f'You have {self.player_actions} moves left!')
-                            self.player_action(action=input(
-                                'What would you like to do next? '))
-                        else:
-                            print(f'{self.player.name} has finished their turn.')
-                            self.end_turn()
-
                 elif action == 'Pass':
                     self.player_actions = 0
                     self.end_turn()
                 else:
-                    print('Invalid action!')
+                    logging.warning('Invalid action!')
                     self.player_action(action=input('Try again? '))
             except Exception as e:
-                print(e)
+                self.game.actionlogging.debug(
+                    f'The error happened in the turn object. {e}')
 
     def end_turn(self):
         '''
@@ -336,9 +383,11 @@ class Turn(object):
         #         #shuffle infection deck discard pile
         #         #place them on top, then draw
 
-        print(self.player.hand)
+        self.game.actionlogging.info(self.player.hand)
         self.game.turncounter += 1
         self.game.GameState.save_state()
+        self.game.actionlogging.info(
+            f'{self.player.name} has finished their turn.')
         return None
 
 
@@ -414,10 +463,10 @@ class City(object):
             self.total_cubes += num_of_cubes
             self.game.InfectionCubes[color] -= num_of_cubes
             if num_of_cubes > 1:
-                print(
+                self.game.actionlogging.info(
                     f'{self.name} has been infected with {num_of_cubes} {color} cubes.')
             else:
-                print(
+                self.game.actionlogging.info(
                     f'{self.name} has been infected with {num_of_cubes} {color} cube.')
         else:
             self.outbreak(color)
@@ -525,19 +574,20 @@ class Move(PlayerAction):
             try:
                 if self.target_city in self.game.gameCities[self.player.location].connected_cities:
                     self.receiver.move_player(self.player, self.target_city)
-                    print(
+                    self.game.actionlogging.info(
                         f'{self.player.name} has moved to {self.target_city}.'
                     )
                     self.game.Turn.player_actions -= 1
                     break
 
                 else:
-                    print(
+                    logging.warning(
                         f'{self.player.name} cannot move to {self.target_city}. Try another location or cancel.')
                     break
 
             except Exception as e:
-                print(f'{e} happened in the Move Command')
+                self.game.actionlogging.debug(
+                    f'{e} happened in the Move Command')
                 break
 
 
@@ -553,33 +603,57 @@ class DirectFlight(PlayerAction):
             try:
                 if self.target_city in [i[0] for i in self.player.hand]:
                     self.receiver.move_player(self.player, self.target_city)
-                    print(
+                    self.game.actionlogging.info(
                         f'{self.player.name} has moved to {self.target_city}.'
                     )
                     self.game.Turn.player_actions -= 1
-                    #janky af but works. Uses the index of the list comprehension match to remove card from hand.
-                    self.player.hand.discard(self.player.hand[[i[0] for i in self.player.hand].index(self.target_city)])
+                    # janky af but works. Uses the index of the list comprehension match to remove card from hand.
+                    self.player.hand.discard(
+                        self.player.hand[[i[0] for i in self.player.hand].index(self.target_city)])
                     break
                 else:
-                    print(
+                    logging.warning(
                         f'{self.player.name} cannot move to {self.target_city}. Try another location or cancel.')
                     break
             except Exception as e:
-                print(f'{e} happened in the Direct Flight Command')
+                self.game.actionlogging.debug(
+                    f'{e} happened in the Direct Flight Command')
                 break
 
 
 class CharterFlight(PlayerAction):
-    def __init__(self, receiver: MoveReceiver, player=None, target_city=None):
+    def __init__(self, receiver: MoveReceiver, player=None, target_city=None, game=None):
+        self.game = game
         self.player = player
         self.target_city = target_city
         self.receiver = receiver
 
-    def execute(self):
-        if self.target_city in self.player.player_cards.keys():
-            self.receiver.move_player(self.player, self.target_city)
+    def city_check(self):
+        if self.player.location in [i[0] for i in self.player.hand]:
+            self.game.actionlogging.info(
+                f'{self.player.name} can charter a flight to anywhere.')
+            return True
         else:
-            print('You cannot move to that city.')
+            self.game.actionlogging.warning(
+                f'{self.player.name} cannot charter a flight to anywhere.')
+            return False
+
+    def execute(self):
+        while True:
+            try:
+                self.receiver.move_player(self.player, self.target_city)
+                self.game.actionlogging.info(
+                    f'{self.player.name} has moved to {self.target_city}.'
+                )
+                self.game.Turn.player_actions -= 1
+                # janky af but works. Uses the index of the list comprehension match to remove card from hand.
+                self.player.hand.discard(
+                    self.player.hand[[i[0] for i in self.player.hand].index(self.player.location)])
+                break
+            except Exception as e:
+                self.game.actionlogging.debug(
+                    f'{e} happened in the Charter Flight Command')
+                break
 
 
 class ShuttleFlight(PlayerAction):
@@ -592,7 +666,7 @@ class ShuttleFlight(PlayerAction):
         if self.player.player_location["Research"] and self.target_city['Research']:
             self.receiver.move_player(self.player, self.target_city)
         else:
-            print('You cannot move to that city.')
+            logging.warning('You cannot move to that city.')
 
 
 class ShareKnowledge(PlayerAction):
@@ -615,11 +689,11 @@ class ShareKnowledge(PlayerAction):
                 self.receiver.remove_card(self.player, self.city_card)
                 self.receiver.add_card(self.target_player, self.city_card)
             else:
-                print(
+                logging.warning(
                     "You must be in the same city as the card you wish to trade or trade with a Researcher")
 
         else:
-            print('You cannot share knowledge.')
+            logging.warning('You cannot share knowledge.')
 
 
 class DiscoverCure(PlayerAction):
@@ -630,9 +704,8 @@ class DiscoverCure(PlayerAction):
         # if scientist, only need four of same color card
         # else need 5 of same card type
         # player location must have research station
-        #will use collections module to check if the player has the required cards.
-        #check the card amounts against player role and behave accordingly.
-        
+        # will use collections module to check if the player has the required cards.
+        # check the card amounts against player role and behave accordingly.
 
     def execute(self):
         pass
@@ -646,7 +719,7 @@ class Treat(PlayerAction):
         self.receiver = receiver
 
     def execute(self):
-        print('You have treated a disease!')
+        self.game.actionlogging.info('You have treated a disease!')
 
 
 class BuildResearch(PlayerAction):
@@ -662,7 +735,7 @@ class SpecialAction(PlayerAction):
         self.receiver = receiver
 
     def execute(self):
-        print("Special action started!")
+        self.game.actionlogging.info("Special action started!")
         self.receiver.special_action()
 
 
@@ -702,7 +775,7 @@ class GeneralActionReceiver:
     '''
 
     def special_action(self):
-        print("Special Action completed!")
+        self.game.actionlogging.info("Special Action completed!")
 
 
 class ActionInvoker:
@@ -725,6 +798,6 @@ class ActionInvoker:
 
 
 if __name__ == '__main__':
-    game = Game(2, 2, 4)
+    game = Game(2, 0, 6)
     game.setup_game()
     game.start_turn()
